@@ -1,6 +1,6 @@
-using GearSync.Database;
+using GearSyncAPI.Database;
 
-const string databasePath = "GearSync.db";
+const string databasePath = "GearSyncAPI.db";
 DatabaseInitializer.Initialize(databasePath);
 
 var builder = WebApplication.CreateBuilder(args);

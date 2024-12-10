@@ -1,7 +1,7 @@
 using System.IO;
 using Microsoft.Data.Sqlite;
 
-namespace GearSync.Database
+namespace GearSyncAPI.Database
 {
     public static class DatabaseInitializer
     {

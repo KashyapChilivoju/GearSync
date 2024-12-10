@@ -137,7 +137,7 @@ INSERT INTO Cars (Make, Model, Year, Colours, Body, Transmission, FuelType, Seat
     ('Volvo', 'XC90', 2009, 'Blue,Silver', 'SUV', 'Automatic', 'Diesel', 5, 4),
     ('Volvo', 'XC90', 2014, 'Gray,Black', 'SUV', 'Manual', 'Hybrid', 5, 4),
     ('Volvo', 'XC90', 2018, 'Silver,Red', 'SUV', 'Automatic', 'Petrol', 5, 4),
-    ('Volvo', 'XC90', 2022, 'White,Blue', 'SUV', 'Manual', 'Diesel', 5, 4)
+    ('Volvo', 'XC90', 2022, 'White,Blue', 'SUV', 'Manual', 'Diesel', 5, 4),
 
     -- Luxury Cars
     ('Porsche', '911', 2020, 'Red,Black', 'Coupe', 'Automatic', 'Petrol', 2, 2),
