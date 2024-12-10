@@ -1,10 +1,10 @@
 # Compiled source
-/bin/
-/obj/
-/out/
+*bin/
+*obj/
+*out/
 
 # Rider project files
-.idea/
+*.idea/
 *.sln.iml
 
 # User-specific files
@@ -35,24 +35,24 @@
 *.mdb
 
 # Dependency directories
-/packages/
-.vscode/
-node_modules/
+*/packages/
+*.vscode/
+*node_modules/
 
 # IDE-specific settings
-.vs/
-.vscode/
+*.vs/
+*.vscode/
 *.CodeAnalysisLog.xml
 *.editorconfig
 
 # Rider-specific settings
-.idea/
+*.idea/
 *.iml
 
 # OS generated files
-.DS_Store
-Thumbs.db
-desktop.ini
+*.DS_Store
+*Thumbs.db
+*desktop.ini
 
 # DB File
 *.db

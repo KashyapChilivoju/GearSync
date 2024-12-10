@@ -1,8 +1,8 @@
 INSERT INTO Dealers (DealerName, DealerToken) VALUES
     ('Prime Auto Group', 'token123'),
-    ('Luxury Wheels Inc.', 'token123'),
-    ('Family Motors', 'token123'),
-    ('EcoDrive Auto', 'token123');                
+    ('Luxury Wheels Inc.', 'token456'),
+    ('Family Motors', 'token789'),
+    ('EcoDrive Auto', 'token010');                
 
 
 INSERT INTO Cars (Make, Model, Year, Colours, Body, Transmission, FuelType, Seats, Doors) VALUES
@@ -137,4 +137,11 @@ INSERT INTO Cars (Make, Model, Year, Colours, Body, Transmission, FuelType, Seat
     ('Volvo', 'XC90', 2009, 'Blue,Silver', 'SUV', 'Automatic', 'Diesel', 5, 4),
     ('Volvo', 'XC90', 2014, 'Gray,Black', 'SUV', 'Manual', 'Hybrid', 5, 4),
     ('Volvo', 'XC90', 2018, 'Silver,Red', 'SUV', 'Automatic', 'Petrol', 5, 4),
-    ('Volvo', 'XC90', 2022, 'White,Blue', 'SUV', 'Manual', 'Diesel', 5, 4);
+    ('Volvo', 'XC90', 2022, 'White,Blue', 'SUV', 'Manual', 'Diesel', 5, 4)
+
+    -- Luxury Cars
+    ('Porsche', '911', 2020, 'Red,Black', 'Coupe', 'Automatic', 'Petrol', 2, 2),
+    ('Ferrari', '488 Spider', 2021, 'Yellow,Black', 'Convertible', 'Automatic', 'Petrol', 2, 2),
+    ('Lamborghini', 'Huracan', 2022, 'Green,White', 'Coupe', 'Automatic', 'Petrol', 2, 2),
+    ('Bugatti', 'Chiron', 2021, 'Blue,Silver', 'Coupe', 'Automatic', 'Petrol', 2, 2),
+    ('McLaren', '720S', 2023, 'Orange,Black', 'Coupe', 'Automatic', 'Petrol', 2, 2);
