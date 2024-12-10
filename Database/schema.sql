@@ -1,0 +1,15 @@
+CREATE TABLE Dealers (
+    DealerID INTEGER PRIMARY KEY,
+    DealerName TEXT NOT NULL,
+    DealerToken TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE Cars (
+    CarID INTEGER PRIMARY KEY,
+    Make TEXT NOT NULL,
+    Model TEXT NOT NULL,
+    Year INTEGER NOT NULL,
+    StockLevel INTEGER NOT NULL,
+    DealerID INTEGER NOT NULL,
+    FOREIGN KEY (DealerID) REFERENCES Dealers (DealerID)
+);

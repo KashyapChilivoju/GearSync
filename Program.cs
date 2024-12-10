@@ -1,3 +1,8 @@
+using GearSync.Database;
+
+const string databasePath = "GearSync.db";
+DatabaseInitializer.Initialize(databasePath);
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
