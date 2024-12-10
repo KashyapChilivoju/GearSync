@@ -1,0 +1,6 @@
+@GearSync_HostAddress = http://localhost:5187
+
+GET {{GearSync_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

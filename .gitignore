@@ -1,0 +1,55 @@
+# Compiled source
+/bin/
+/obj/
+/out/
+
+# Rider project files
+.idea/
+*.sln.iml
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swn
+*.swo
+*.sln.ide
+
+# Build output
+*.dll
+*.exe
+*.pdb
+*.cache
+*.ilk
+*.lib
+*.mdb
+
+# Dependency directories
+/packages/
+.vscode/
+node_modules/
+
+# IDE-specific settings
+.vs/
+.vscode/
+*.CodeAnalysisLog.xml
+*.editorconfig
+
+# Rider-specific settings
+.idea/
+*.iml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
