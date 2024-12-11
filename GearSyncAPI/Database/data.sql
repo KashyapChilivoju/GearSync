@@ -1,10 +1,3 @@
-INSERT INTO Dealers (DealerName, DealerToken) VALUES
-    ('Prime Auto Group', 'token123'),
-    ('Luxury Wheels Inc.', 'token456'),
-    ('Family Motors', 'token789'),
-    ('EcoDrive Auto', 'token010');                
-
-
 INSERT INTO Cars (Make, Model, Year, Colours, Body, Transmission, FuelType, Seats, Doors) VALUES
     -- Toyota Camry Variations
     ('Toyota', 'Camry', 2000, 'Red,Blue', 'Sedan', 'Automatic', 'Petrol', 5, 4),

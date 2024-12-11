@@ -19,8 +19,19 @@ CREATE TABLE Cars (
 -- Dealers Table
 CREATE TABLE Dealers (
     DealerID INTEGER PRIMARY KEY AUTOINCREMENT,
-    DealerName TEXT NOT NULL,
-    DealerToken TEXT NOT NULL UNIQUE
+    DealerName TEXT NOT NULL UNIQUE,
+    PasswordHash TEXT NOT NULL
+);
+
+-- Starting DealerIDs off at 1000
+INSERT INTO sqlite_sequence (name, seq) VALUES ('Dealers', 999);
+
+-- Sessions Table
+CREATE TABLE Sessions (
+    DealerID INTEGER PRIMARY KEY,
+    JWTToken TEXT NOT NULL,
+    ExpiresAt DATETIME NOT NULL,
+    FOREIGN KEY (DealerID) REFERENCES Dealers(DealerID)
 );
     
 -- Stock Table
