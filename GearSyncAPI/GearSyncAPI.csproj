@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Cars\" />
     <Folder Include="Controllers\Stock\" />
   </ItemGroup>
 
