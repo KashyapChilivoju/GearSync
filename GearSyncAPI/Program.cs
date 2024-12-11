@@ -6,6 +6,14 @@ DatabaseInitializer.Initialize(databasePath);
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Specify the HTTPS redirection port
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenLocalhost(5187); // HTTP
+    options.ListenLocalhost(7054, listenOptions => listenOptions.UseHttps());
+});
+
+
 // Add services to the container
 builder.Services.AddFastEndpoints();
 builder.Services.AddEndpointsApiExplorer(); // Register API Explorer
