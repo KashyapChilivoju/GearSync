@@ -64,10 +64,11 @@ public class AddStockEndpoint : Endpoint<AddStockRequest, AddStockResponse>
 
         // Update or Insert stock
         const string upsertStockQuery = @"
-            INSERT INTO Stock (CarID, DealerID, StockLevel)
-            VALUES (@CarID, @DealerID, @StockLevel)
-            ON CONFLICT(CarID, DealerID) DO UPDATE SET StockLevel = StockLevel + @StockLevel";
-        await connection.ExecuteAsync(upsertStockQuery, new { req.CarID, req.DealerID, req.StockLevel });
+            INSERT INTO Stock (CarID, DealerID, StockLevel, Colour)
+            VALUES (@CarID, @DealerID, @StockLevel, @Colour)
+            ON CONFLICT(CarID, DealerID, Colour) DO UPDATE 
+            SET StockLevel = StockLevel + @StockLevel";
+        await connection.ExecuteAsync(upsertStockQuery, new { req.CarID, req.DealerID, req.StockLevel, req.Colour });
 
         await SendOkAsync(new AddStockResponse { Success = true });
     }

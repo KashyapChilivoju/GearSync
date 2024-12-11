@@ -39,7 +39,8 @@ CREATE TABLE Stock (
     CarID INTEGER NOT NULL,
     DealerID INTEGER NOT NULL,
     StockLevel INTEGER NOT NULL,
-    PRIMARY KEY (CarID, DealerID),
+    Colour TEXT NOT NULL,
+    PRIMARY KEY (CarID, DealerID, Colour),
     FOREIGN KEY (CarID) REFERENCES Cars (CarID),
     FOREIGN KEY (DealerID) REFERENCES Dealers (DealerID)
 );
