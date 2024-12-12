@@ -8,7 +8,7 @@ public class GetDealerStockEndpoint : Endpoint<GetDealerStockRequest, GetDealerS
 {
     public override void Configure()
     {
-        Get("/stock/dealer");
+        Post("/stock/dealer");
         AllowAnonymous();
     }
 

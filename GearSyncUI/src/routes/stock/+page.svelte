@@ -1,26 +1,205 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
-    import { onMount } from 'svelte';
   import Header from '../Header.svelte';
+
+  let stock: any[] = []; // Initialize as an empty array
+  let isLoggedIn = false;
+  let make = '';
+  let model = '';
+  let year: number | null = null;
+  let colours = '';
+  let body = '';
+  let transmission = '';
+  let fuelType = '';
+  let seats: number | null = null;
+  let doors: number | null = null;
+  let isLoading = true; // Loading state
 
   // Check if the user is logged in
   onMount(() => {
     const token = localStorage.getItem('authToken');
-    if (!token) {
-      // If no authToken, redirect to login page
+    const dealerID = localStorage.getItem('dealerID');
+    if (!token || !dealerID) {
+      // If no authToken or dealerID, redirect to login page
       goto('/login');
     }
+    fetchStock(dealerID, token); // Fetch stock list using dealer credentials
   });
+
+  async function fetchStock(dealerID: string, token: string) {
+    // Create the filter object dynamically, excluding default values
+    const filters: any = {};
+
+    if (make) filters.Make = make;
+    if (model) filters.Model = model;
+    if (year !== null) filters.Year = year;
+    if (colours) filters.Colours = colours;
+    if (body) filters.Body = body;
+    if (transmission) filters.Transmission = transmission;
+    if (fuelType) filters.FuelType = fuelType;
+    if (seats !== null) filters.Seats = seats;
+    if (doors !== null) filters.Doors = doors;
+
+    // Log the filters to debug what is being sent in the request body
+    console.log('Request Body:', token);
+
+    // Send a POST request to fetch stock with applied filters
+    const response = await fetch('http://localhost:5187/stock/dealer', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        DealerID: dealerID,
+        Token: token,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log('Stock fetched successfully:', data);
+      stock = data.stock; // Update the stock array
+    } else {
+      console.error('Error fetching stock:', data.error);
+    }
+
+    // Simulate delay before rendering the fetched stock
+    setTimeout(() => {
+      isLoading = false; // Set loading state to false after a delay
+    }, 500); // Delay of 500ms after fetching stock
+  }
+
+  function handleFilterChange() {
+    // Call the function to fetch stock again after changing filters
+    setTimeout(() => fetchStock(localStorage.getItem('dealerID')!, localStorage.getItem('authToken')!), 500); // Adding a delay before updating the stock list after a filter change
+  }
 </script>
+
 <main>
   <Header></Header>
 
   <section class="intro">
-    <h1>Current Stock</h1>
+    <h1>Dealer's Current Stock</h1>
 
+    <!-- Filter Options -->
+    <div class="filters">
+      <!-- Row 1 of filters -->
+      <div class="filter-row">
+        <input type="text" bind:value={make} placeholder="Make" on:input={handleFilterChange} />
+        <input type="text" bind:value={model} placeholder="Model" on:input={handleFilterChange} />
+        <input type="number" bind:value={year} placeholder="Year" on:input={handleFilterChange} />
+        <input type="text" bind:value={colours} placeholder="Colours" on:input={handleFilterChange} />
+        <input type="text" bind:value={body} placeholder="Body" on:input={handleFilterChange} />
+      </div>
+
+      <!-- Row 2 of filters -->
+      <div class="filter-row">
+        <input type="text" bind:value={transmission} placeholder="Transmission" on:input={handleFilterChange} />
+        <input type="text" bind:value={fuelType} placeholder="Fuel Type" on:input={handleFilterChange} />
+        <input type="number" bind:value={seats} placeholder="Seats" on:input={handleFilterChange} />
+        <input type="number" bind:value={doors} placeholder="Doors" on:input={handleFilterChange} />
+      </div>
+    </div>
+
+    <!-- Stock List -->
+    <div class="cars-list">
+      {#if isLoading}
+        <p>Loading stock...</p>
+      {:else if stock.length > 0}
+        <table>
+          <thead>
+            <tr>
+              <th>Make</th>
+              <th>Model</th>
+              <th>Year</th>
+              <th>Color</th>
+              <th>Transmission</th>
+              <th>Fuel Type</th>
+              <th>Seats</th>
+              <th>Doors</th>
+              <th>Stock Level</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#each stock as car}
+              <tr>
+                <td>{car.make}</td>
+                <td>{car.model}</td>
+                <td>{car.year}</td>
+                <td>{car.colour}</td>
+                <td>{car.transmission}</td>
+                <td>{car.fuelType}</td>
+                <td>{car.seats}</td>
+                <td>{car.doors}</td>
+                <td>{car.stockLevel}</td>
+              </tr>
+            {/each}
+          </tbody>
+        </table>
+      {:else}
+        <p>No stock found matching your filters.</p>
+      {/if}
+    </div>
   </section>
 </main>
 
 <style>
-  
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+  }
+
+  .filters {
+    margin: 2rem 0;
+    width: 100%;
+  }
+
+  .filter-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .filter-row input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    flex: 1;
+  }
+
+  .cars-list {
+    margin-top: 2rem;
+    width: 100%;
+    max-height: 500px;
+    overflow-y: auto; /* Add scroll bar */
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 1rem;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f4f4f4;
+  }
+
+  tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  .cars-list p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #333;
+  }
 </style>
