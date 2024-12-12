@@ -9,7 +9,7 @@ public class LogoutEndpoint : Endpoint<LogoutRequest, LogoutResponse>
     public override void Configure()
     {
         Delete("/logout");
-        AllowAnonymous(); // You can require authorization if you have proper JWT token middleware
+        AllowAnonymous();
     }
 
     public override async Task HandleAsync(LogoutRequest req, CancellationToken ct)

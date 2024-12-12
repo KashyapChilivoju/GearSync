@@ -30,6 +30,9 @@ builder.Services.AddCors(options =>
             .AllowCredentials()); // Allows credentials like cookies, authorization headers etc.
 });
 
+// Register the background service to clean expired sessions
+builder.Services.AddHostedService<SessionCleanupService>(); // Register your background service here
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
