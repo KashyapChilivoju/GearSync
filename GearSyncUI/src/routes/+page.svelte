@@ -95,7 +95,7 @@
 
   .auth-actions button, .user-actions button {
     padding: 0.5rem 1rem;
-    font-size: 1rem;
+    font-size: 2rem;
     border: none;
     background-color: #007bff;
     color: white;
