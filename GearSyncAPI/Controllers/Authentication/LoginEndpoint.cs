@@ -30,7 +30,6 @@ public class LoginEndpoint : Endpoint<LoginRequest, LoginResponse>
 
         if (existingSession.HasValue && existingSession.Value > DateTime.UtcNow)
         {
-            // Deny login if an active session exists
             await SendAsync(new LoginResponse
             {
                 Token = null,
@@ -39,15 +38,18 @@ public class LoginEndpoint : Endpoint<LoginRequest, LoginResponse>
             return;
         }
 
-        // Retrieve dealer's password hash
-        const string dealerQuery = "SELECT PasswordHash FROM Dealers WHERE DealerID = @DealerID";
-        var passwordHash = await connection.QuerySingleOrDefaultAsync<string>(dealerQuery, new { DealerID = req.DealerID });
+        // Retrieve dealer's DealerName and password hash
+        const string dealerQuery = "SELECT DealerName, PasswordHash FROM Dealers WHERE DealerID = @DealerID";
+        var dealer = await connection.QuerySingleOrDefaultAsync<(string DealerName, string PasswordHash)>(
+            dealerQuery, new { DealerID = req.DealerID });
 
-        if (passwordHash == null)
+        if (dealer == default)
         {
             await SendAsync(new LoginResponse { Token = null, Error = "Invalid DealerID or Password." }, statusCode: 401, cancellation: ct);
             return;
         }
+
+        var (dealerName, passwordHash) = dealer;
 
         // Verify the password
         if (!BCrypt.Net.BCrypt.Verify(req.Password, passwordHash))
@@ -74,13 +76,16 @@ public class LoginEndpoint : Endpoint<LoginRequest, LoginResponse>
             ExpiresAt = expiration
         });
 
-        // Send the response
-        await SendOkAsync(new LoginResponse { Token = token, ExpiresAt = expiration });
+        await SendOkAsync(new LoginResponse
+        {
+            Token = token,
+            ExpiresAt = expiration,
+            DealerName = dealerName
+        });
     }
 
     private string GenerateToken(string dealerID)
     {
-        // Example token generation (replace with real JWT implementation)
         return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes($"{dealerID}-{Guid.NewGuid()}"));
     }
 }
@@ -95,5 +100,6 @@ public class LoginResponse
 {
     public string Token { get; set; } = string.Empty;
     public DateTime ExpiresAt { get; set; }
+    public string DealerName { get; set; } = string.Empty;
     public string Error { get; set; } = string.Empty;
 }

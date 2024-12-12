@@ -2,29 +2,30 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import Header from './Header.svelte';
-  let isLoggedIn = false; // Initial state, checks cookie for user session
+
+  let isLoggedIn = false; // Initial state
   let username = '';
 
   onMount(() => {
-    // Check for user session (simplified cookie retrieval)
-    const userSession = document.cookie.split('; ').find(row => row.startsWith('user='));
+    // Check for user session stored in localStorage
+    const userSession = localStorage.getItem('user');
     if (userSession) {
-      const sessionData = JSON.parse(decodeURIComponent(userSession.split('=')[1]));
+      const sessionData = JSON.parse(userSession);
       isLoggedIn = true;
       username = sessionData.username || '';
     }
   });
 
   function logout() {
-    document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    // Clear localStorage and update state
+    localStorage.removeItem('user');
     isLoggedIn = false;
-    goto('/');
+    goto('/'); // Redirect to home page
   }
 </script>
 
 <main>
-
-<Header></Header>
+  <Header></Header>
 
   <nav class="navbar">
     {#if isLoggedIn}
@@ -53,7 +54,7 @@
     flex-direction: column;
     align-items: stretch;
     width: 100%;
-    margin: 0; /* Removes margin to allow full width utilization */
+    margin: 0;
     font-family: 'Arial', sans-serif;
   }
 
@@ -67,7 +68,7 @@
   .header {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Adjusts content spacing */
+    justify-content: space-between;
     width: 100%;
     gap: 0.5rem;
     padding: 1rem 0;
@@ -75,13 +76,13 @@
   }
 
   .logo {
-    width: 200px; /* adjust logo size as necessary */
+    width: 200px;
     height: auto;
   }
 
   h1 {
     flex-grow: 1;
-    font-size: 2.5rem; /* adjusted for normal readability */
+    font-size: 2.5rem;
     color: #333;
     text-align: center;
   }
@@ -94,7 +95,7 @@
 
   .auth-actions button, .user-actions button {
     padding: 0.5rem 1rem;
-    font-size: 2rem;
+    font-size: 1rem;
     border: none;
     background-color: #007bff;
     color: white;
@@ -139,4 +140,3 @@
     color: white;
   }
 </style>
-

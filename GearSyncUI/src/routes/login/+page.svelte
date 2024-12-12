@@ -24,15 +24,21 @@
   
         if (!response.ok) {
           // Show error modal on failure
-          errorMessage = responseData.Error || 'Invalid DealerID or Password';
+          errorMessage = responseData.error || 'Invalid DealerID or Password';
           showErrorModal = true;
         } else {
           console.log('Login Successful:', responseData);
   
           // Store the token in localStorage
-          if (responseData.Token) {
-            localStorage.setItem('authToken', responseData.Token);
-            console.log('Token stored successfully:', responseData.Token);
+          if (responseData.token) {
+
+          // Store dealerName, dealerID, and token in localStorage
+          localStorage.setItem('authToken', responseData.token);
+          localStorage.setItem('dealerID', dealerID);
+          localStorage.setItem('dealerName', responseData.dealerName || '');
+
+
+            console.log('Token stored successfully:', responseData.token);
           }
   
           showSuccessModal = true; // Show success modal
