@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
     import { onMount } from 'svelte';
-  import Header from '../Header.svelte';
+  import Header from '../../Header.svelte';
 
   // Check if the user is logged in
   onMount(() => {
@@ -12,15 +12,17 @@
     }
   });
 </script>
-<main>
-  <Header></Header>
-
-  <section class="intro">
-    <h1>Current Stock</h1>
-
-  </section>
-</main>
-
-<style>
   
-</style>
+  <main>
+    <Header></Header>
+  
+    <section class="intro">
+      <h1>Add Stock</h1>
+  
+    </section>
+  </main>
+  
+  <style>
+    
+  </style>
+  

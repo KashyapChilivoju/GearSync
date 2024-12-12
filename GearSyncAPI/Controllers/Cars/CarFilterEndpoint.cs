@@ -8,7 +8,7 @@ public class CarFilterEndpoint : Endpoint<CarFilterRequest, CarFilterResponse>
 {
     public override void Configure()
     {
-        Get("/cars/filter");
+        Post("/cars/filter");
         AllowAnonymous();
     }
 

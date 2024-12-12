@@ -93,7 +93,7 @@
           <li><a href="/cars/add">Add Car</a></li>
           <li><a href="/cars/remove">Remove Car</a></li>
           <li><a href="/cars">Car List</a></li>
-          <li><a href="/stock">Get Stock</a></li>
+          <li><a href="/stock">Get Current Stock</a></li>
           <li><a href="/stock/add">Add Stock</a></li>
           <li><a href="/stock/manage">Remove/Update Stock</a></li>
         </ul>
