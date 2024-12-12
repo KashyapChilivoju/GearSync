@@ -20,7 +20,7 @@ public class RegisterEndpoint : Endpoint<RegisterRequest, RegisterResponse>
             await SendAsync(new RegisterResponse() { Error = "DealerName and Password are required." }, statusCode: 400, cancellation: ct);
             return;
         }
-
+        try{
         await using var connection = new SqliteConnection("Data Source=GearSync.db");
         connection.Open();
 
@@ -35,7 +35,7 @@ public class RegisterEndpoint : Endpoint<RegisterRequest, RegisterResponse>
         }
         catch (SqliteException ex) when (ex.SqliteErrorCode == 19) // Unique constraint violation
         {
-            await SendAsync(new RegisterResponse { Error = "DealerName already exists." }, statusCode: 400, cancellation: ct);
+            await SendAsync(new RegisterResponse { Error = "DealerName already exists. Use a different name." }, statusCode: 400, cancellation: ct);
             return;
         }
         // Get the DealerID of the newly created dealer
@@ -43,6 +43,12 @@ public class RegisterEndpoint : Endpoint<RegisterRequest, RegisterResponse>
 
         // Return the DealerID to the client
         await SendOkAsync(new RegisterResponse { DealerID = dealerID });
+        }
+        catch (SqliteException ex)
+        {
+            Console.WriteLine($"SQL Error: {ex.Message}");
+            await SendAsync(new RegisterResponse { Error = "An error occurred during registration." }, statusCode: 400, cancellation: ct);
+        }
     }
 }
 

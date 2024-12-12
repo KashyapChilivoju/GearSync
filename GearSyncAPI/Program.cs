@@ -1,23 +1,34 @@
 using GearSyncAPI.Database;
 using FastEndpoints;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 
 const string databasePath = "GearSync.db";
 DatabaseInitializer.Initialize(databasePath);
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Specify the HTTPS redirection port
+// Configure Kestrel to listen on specific ports
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.ListenLocalhost(5187); // HTTP
-    options.ListenLocalhost(7054, listenOptions => listenOptions.UseHttps());
+    options.ListenLocalhost(7054, listenOptions => listenOptions.UseHttps()); // HTTPS
 });
-
 
 // Add services to the container
 builder.Services.AddFastEndpoints();
 builder.Services.AddEndpointsApiExplorer(); // Register API Explorer
 builder.Services.AddSwaggerDocument(); // Enables Swagger for FastEndpoints
+
+// Configure CORS to allow specific origin
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", policy =>
+        policy.WithOrigins("http://localhost:5173") // Specify the allowed origin
+            .AllowAnyMethod() // Allows all methods including OPTIONS
+            .AllowAnyHeader() // Allows all headers
+            .AllowCredentials()); // Allows credentials like cookies, authorization headers etc.
+});
 
 var app = builder.Build();
 
@@ -26,9 +37,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseOpenApi(); // Enable OpenAPI/Swagger UI
     app.UseSwaggerUI(); // Use Swagger UI
+    // app.UseHttpsRedirection(); // Temporarily disable to test CORS
 }
 
-app.UseHttpsRedirection();
+// Apply CORS policy
+app.UseCors("AllowSpecificOrigin");
 
 // Use FastEndpoints
 app.UseFastEndpoints();
