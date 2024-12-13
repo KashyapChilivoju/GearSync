@@ -36,13 +36,13 @@ public class GetCarsResponse
 public class CarDetails
 {
     public int CarID { get; set; }
-    public string Make { get; set; }
-    public string Model { get; set; }
+    public string? Make { get; set; }
+    public string? Model { get; set; }
     public int Year { get; set; }
-    public string Colours { get; set; }
-    public string Body { get; set; }
-    public string Transmission { get; set; }
-    public string FuelType { get; set; }
+    public string? Colours { get; set; }
+    public string? Body { get; set; }
+    public string? Transmission { get; set; }
+    public string? FuelType { get; set; }
     public int Seats { get; set; }
     public int Doors { get; set; }
 }

@@ -212,7 +212,7 @@
           </tbody>
         </table>
       {:else}
-        <p>No stock found matching your filters.</p>
+        <p>No stock found.</p>
       {/if}
     </div>
   </section>

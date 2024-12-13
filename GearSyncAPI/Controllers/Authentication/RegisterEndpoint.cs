@@ -54,12 +54,12 @@ public class RegisterEndpoint : Endpoint<RegisterRequest, RegisterResponse>
 
 public class RegisterRequest
 {
-    public string DealerName { get; set; }
-    public string Password { get; set; }
+    public string? DealerName { get; set; }
+    public string? Password { get; set; }
 }
 
 public class RegisterResponse
 {
     public int? DealerID { get; set; }
-    public string Error { get; set; }
+    public string? Error { get; set; }
 }

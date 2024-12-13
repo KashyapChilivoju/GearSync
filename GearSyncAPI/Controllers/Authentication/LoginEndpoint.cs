@@ -94,11 +94,16 @@ public class LoginRequest
 {
     public string DealerID { get; set; }
     public string Password { get; set; }
+    public LoginRequest(string dealerID, string password)
+    {
+        DealerID = dealerID ?? throw new ArgumentNullException(nameof(dealerID));  // Ensure non-null value
+        Password = password ?? throw new ArgumentNullException(nameof(password));  // Ensure non-null value
+    }
 }
 
 public class LoginResponse
 {
-    public string Token { get; set; } = string.Empty;
+    public string? Token { get; set; } = string.Empty;
     public DateTime ExpiresAt { get; set; }
     public string DealerName { get; set; } = string.Empty;
     public string Error { get; set; } = string.Empty;

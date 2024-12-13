@@ -110,16 +110,17 @@ public class AddCarEndpoint : Endpoint<AddCarRequest, AddCarResponse>
 
 public class AddCarRequest
 {
-    public string Make { get; set; }
-    public string Model { get; set; }
+    public string Make { get; set; } = string.Empty;
+    public string Model { get; set; } = string.Empty; 
     public int Year { get; set; }
-    public string Colours { get; set; }
-    public string Body { get; set; }
-    public string Transmission { get; set; }
-    public string FuelType { get; set; }
-    public int Seats { get; set; }
-    public int Doors { get; set; }
+    public string Colours { get; set; } = string.Empty;
+    public string Body { get; set; } = string.Empty;
+    public string Transmission { get; set; } = string.Empty;
+    public string FuelType { get; set; } = string.Empty;
+    public int Seats { get; set; } = 0;
+    public int Doors { get; set; } = 0;
 }
+
 
 public class AddCarResponse
 {

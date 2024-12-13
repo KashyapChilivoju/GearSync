@@ -69,13 +69,13 @@ public class LogoutEndpoint : Endpoint<LogoutRequest, LogoutResponse>
 
 public class LogoutRequest
 {
-    public string DealerID { get; set; }
-    public string Token { get; set; }
+    public string? DealerID { get; set; }
+    public string? Token { get; set; }
 }
 
 public class LogoutResponse
 {
-    public bool Success { get; set; }
-    public string Message { get; set; } = string.Empty;
-    public string Error { get; set; } = string.Empty;
+    public bool? Success { get; set; }
+    public string? Message { get; set; } = string.Empty;
+    public string? Error { get; set; } = string.Empty;
 }

@@ -138,3 +138,7 @@ INSERT INTO Cars (Make, Model, Year, Colours, Body, Transmission, FuelType, Seat
     ('Lamborghini', 'Huracan', 2022, 'Green,White', 'Coupe', 'Automatic', 'Petrol', 2, 2),
     ('Bugatti', 'Chiron', 2021, 'Blue,Silver', 'Coupe', 'Automatic', 'Petrol', 2, 2),
     ('McLaren', '720S', 2023, 'Orange,Black', 'Coupe', 'Automatic', 'Petrol', 2, 2);
+
+
+
+    
