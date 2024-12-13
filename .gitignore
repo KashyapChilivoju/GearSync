@@ -54,9 +54,6 @@
 *Thumbs.db
 *desktop.ini
 
-# DB File
-*.db
-
 *.svelte-kit/
 *dist/
 *.log
