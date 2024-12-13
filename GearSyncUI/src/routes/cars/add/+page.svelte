@@ -24,7 +24,6 @@
     if (!token || !dealerID) {
       goto('/login'); // Redirect to login page if not logged in
     }
-    fetchStock(dealerID, token); // Fetch stock list using dealer credentials
   });
 
   // Handle form submission
@@ -61,11 +60,17 @@
       if (response.ok) {
         successMessage = 'Car added successfully!';
         clearForm();
+        alert('Car added successfully!'); // Popup success message
+        setTimeout(() => {
+          goto('/');  // Redirect to home page after success
+        }, 2000);
       } else {
         errorMessage = data.Error || 'Failed to add car.';
+        alert(errorMessage); // Popup error message
       }
     } catch (error) {
       errorMessage = 'An error occurred while adding the car.';
+      alert(errorMessage); // Popup error message
       console.error(error);
     } finally {
       isSubmitting = false;
